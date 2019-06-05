@@ -4,7 +4,6 @@ import android.support.annotation.IntDef;
 import android.util.Log;
 
 import com.google.android.things.pio.I2cDevice;
-import com.google.android.things.pio.PeripheralManagerService;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;
@@ -85,19 +84,6 @@ public class Bmp180 implements AutoCloseable {
 
 
     private int standardSeaLevelPressure = 101325;
-
-    public Bmp180(String i2cName) {
-        try {
-            mDevice = new PeripheralManagerService().openI2cDevice(i2cName, BMP180_ADDRESS);
-            try {
-                readCalibrationData();
-            } catch (Exception e) {
-                Log.e(TAG, "Bmp180 Error: ", e);
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Bmp180 Error: ", e);
-        }
-    }
 
     public Bmp180(I2cDevice i2cDevice) {
         mDevice = i2cDevice;
